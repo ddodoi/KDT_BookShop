@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const conn = require('../mariadb');
-const {body, param, validationResult} = require('express-validator')
+const {body, param, validationResult} = require('express-validator');
+const {StatusCodes} = require('http-status-codes');  //status code모듈
 
 const jwt = require(('jsonwebtoken'));
 const dotenv = require('dotenv');
@@ -17,14 +18,14 @@ router.post('/join',
     ],(req, res) => {
         const {email, password} = req.body;
         let sql = `INSERT INTO users(email,password) VALUES(?,?)`;
-        let value = [email, password];
-        conn.query(sql, value,
+        let values = [email, password];
+        conn.query(sql, values,
             (err, results)=>{
                 if (err){
                     console.log(err);
-                    return res.status(400).end();
+                    return res.status(StatusCodes.BAD_REQUEST).end();  //BAD REQUEST
                 }
-                res.status(201).json(results)
+                return res.status(StatusCodes.CREATED).json(results);
             }
             );
 
