@@ -117,7 +117,6 @@ const passwordReset = (req, res)=>{
 };
 
 
-
 module.exports = {
     join,
     login,
