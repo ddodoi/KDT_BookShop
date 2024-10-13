@@ -1,6 +1,7 @@
 //express 모듈
 const express = require('express');
 const app = express();
+app.use(express.json());
 
 //dotenv모듈
 const dotenv = require('dotenv');

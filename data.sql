@@ -13,5 +13,19 @@ VALUES ("흥부와 놀부들", "종이책", 3, "제비..", "까만 제비..", "�
 
 SELECT * FROM books LEFT JOIN category ON books.category_id = category.id;
 
-SELECT * FROM books LEFT JOIN category ON books.category_id = category.id WHERE books.id = 1 ;
+SELECT * FROM books 
 
+INSERT INTO Bookshop.likes VALUES (1,1);
+INSERT INTO Bookshop.likes VALUES (1,2);
+INSERT INTO Bookshop.likes VALUES (1,3);
+INSERT INTO Bookshop.likes VALUES (3,1);
+INSERT INTO Bookshop.likes VALUES (4,4);
+INSERT INTO Bookshop.likes VALUES (2,1);
+INSERT INTO Bookshop.likes VALUES (2,3);
+INSERT INTO Bookshop.likes VALUES (2,5);
+
+
+DELETE FROM Bookshop.likes WHERE user_id = 1 AND liked_book_id = 3;
+
+SELECT count(*) FROM 테이블명;
+SELECT count(*) FROM Bookshop.likes WHERE liked_book_id = 2 ; 
