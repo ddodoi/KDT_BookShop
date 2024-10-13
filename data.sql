@@ -29,3 +29,8 @@ DELETE FROM Bookshop.likes WHERE user_id = 1 AND liked_book_id = 3;
 
 SELECT count(*) FROM 테이블명;
 SELECT count(*) FROM Bookshop.likes WHERE liked_book_id = 2 ; 
+
+
+INSERT INTO Bookshop.cartItems (book_id, quantity, user_id) VALUES (1, 1, 1);
+
+SELECT cartItems.id, book_id, title, quantity, price FROM Bookshop.cartItems LEFT JOIN Bookshop.books ON books.id = cartItems.book_id WHERE cartItems.user_id = 1;
