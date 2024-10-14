@@ -34,3 +34,19 @@ SELECT count(*) FROM Bookshop.likes WHERE liked_book_id = 2 ;
 INSERT INTO Bookshop.cartItems (book_id, quantity, user_id) VALUES (1, 1, 1);
 
 SELECT cartItems.id, book_id, title, quantity, price FROM Bookshop.cartItems LEFT JOIN Bookshop.books ON books.id = cartItems.book_id WHERE cartItems.user_id = 1;
+
+
+INSERT INTO Bookshop.delivery (address,receiver, contact) VALUE ('서울시 광진구', '홍지나', '010-1234-5678');
+
+INSERT INTO Bookshop.orders (book_title, total_quantity, total_price, user_id, delivery_id) 
+VALUES ("어린왕자들", 3, 60000, 1, 1);
+
+
+INSERT INTO orderedBook (order_id, book_id, quantity) 
+VALUES (1, 1, 1);
+
+INSERT INTO orderedBook (order_id, book_id, quantity) 
+VALUES (1, 3, 2);
+
+
+SELECT max(id) FROM Bookshop.orderedBook;
