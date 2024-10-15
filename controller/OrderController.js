@@ -1,8 +1,17 @@
-const conn = require('../mariadb');
+//const conn = require('../mariadb'); //db모듈
+const mairadb = require('mysql2/promise'); 
 const {StatusCodes} = require('http-status-codes');  //status code모듈
 
 //결제하기 
-const order = (req, res) => {
+const order = async (req, res) => {
+    const conn = mariadb.createConnection({
+        host: '127.0.0.1',
+        user: 'root',
+        password : 'root',
+        database: 'Bookshop',
+        dateStrings : true
+      });
+
     const {items, delivery, total_quantity, total_price, user_id, firstBookTitle} = req.body;
 
     let delivery_id;
@@ -10,15 +19,10 @@ const order = (req, res) => {
 
     let sql = `INSERT INTO Bookshop.delivery (address, receiver, contact) VALUES (?, ?, ?)`;
     let values = [delivery.address, delivery.receiver, delivery.contact];
-    conn.query(sql, values, (err, results) => {
-        if (err){
-            console.log(err)
-            return res.status(StatusCodes.BAD_REQUEST).end();
-        }
-        
-        delivery_id = results.insertId;
+    
+    let [results] = await conn.query(sql, values)
 
-        })
+    console.log(results);
 
         sql = `INSERT INTO Bookshop.orders (book_title, total_quantity, total_price, user_id, delivery_id) VALUES (?, ?, ?, ?, ?)`;
         values = [firstBookTitle, total_quantity, total_price, user_id, delivery_id];
@@ -32,6 +36,7 @@ const order = (req, res) => {
 
         })
 
+        
         sql = `INSERT INTO Bookshop.orderedBook (order_id, book_id, quantity) VALUES (?, ?, ?)`;
         //items..배열 : 요소들을 하나씩 꺼내서 (foreach문 돌려서) >
         values = [];
